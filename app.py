@@ -67,16 +67,37 @@ def delete(directory: str, by: str = typer.Option(..., help="Delete by 'key' or 
         elif by == 'key':
             keys = typer.prompt("Enter keys (comma-separated):")
             key_list = keys.split(',')
+
+            # Display files to be deleted
+            files_to_delete = []
             for filename in os.listdir(directory):
                 if os.path.isfile(os.path.join(directory, filename)):
                     for key in key_list:
                         if key.lower() in filename.lower():
-                            os.remove(os.path.join(directory, filename))
+                            files_to_delete.append(filename)
                             break
 
-            typer.echo(f"Files deleted in {directory} using keys: {keys}.")
+            if not files_to_delete:
+                typer.echo("No files found to delete.")
+                return
+
+            # Confirmation prompt
+            confirm = typer.confirm(
+                f"Are you sure you want to delete these files? {files_to_delete}"
+            )
+            if confirm:
+                # Perform deletion
+                for filename in files_to_delete:
+                    os.remove(os.path.join(directory, filename))
+
+                typer.echo(f"Files deleted in {directory} using keys: {keys}.")
+            else:
+                typer.echo("Deletion operation cancelled.")
         else:
             raise typer.BadParameter("Invalid option. Use 'key' or 'extension'.")
+
+    except Exception as e:
+        typer.echo(f"Error deleting files: {e}", err=True)
 
     except Exception as e:
         typer.echo(f"Error deleting files: {e}", err=True)
