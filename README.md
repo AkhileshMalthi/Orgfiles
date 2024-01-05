@@ -1,58 +1,65 @@
-# Orgfiles - File Organizer CLI Tool
+# Orgfiles CLI Application
 
-Orgfiles is a command-line tool designed to help organize files within a directory based on their extensions, keywords, perform deletions, and bulk renaming.
+Orgfiles is a versatile command-line tool for organizing, managing, and tidying up your files effortlessly.
 
 ## Features
 
-- **Organize by Extension:** Sorts files into folders based on their file extensions.
-- **Organize by Keywords:** Moves files containing specified keywords into respective folders.
-- **Delete by Keys/Extensions:** Removes files containing specific keys or with a specified extension.
-- **Bulk Renaming:** Renames files in a directory using a provided pattern.
+- **Smart Organization:** Arrange files by extension or keywords for efficient file management.
+- **Selective Deletion:** Delete files based on specific keywords or file extensions with precision.
+- **Bulk File Renaming:** Rename multiple files in a directory according to a provided pattern.
+- **Undo Capability:** Reverse previous file movements, providing a safety net for accidental actions.
 
 ## Installation
 
-1. **Clone the repository:**
+1. **Clone the Repository:**
+
     ```bash
-    git clone https://github.com/your-username/orgfiles.git
+    git clone https://github.com/your_username/orgfiles.git
     cd orgfiles
     ```
 
-2. **Install dependencies:**
+2. **Install Dependencies:**
+
+    - typer
+
     ```bash
-    pip install -r requirements.txt
+    pip install typer
     ```
 
 ## Usage
 
-### Commands:
+### Commands
 
-- **Organize by Extension:**
+- `organize`: Sort files within a directory by extension or keyword.
+
     ```bash
-    python orgfiles.py organize_by_extension /path/to/directory
+    python orgfiles.py organize /path/to/directory --by extension
+    python orgfiles.py organize /path/to/directory --by keyword
     ```
 
-- **Organize by Keywords:**
+- `delete`: Remove files within a directory based on keywords or extensions.
+
     ```bash
-    python orgfiles.py organize_by_keywords /path/to/directory keyword1,keyword2,keyword3
+    python orgfiles.py delete /path/to/directory --by extension
+    python orgfiles.py delete /path/to/directory --by key
     ```
 
-- **Delete by Keys:**
+- `undo`: Undo the last file movement action (organization or deletion).
+
     ```bash
-    python orgfiles.py delete_by_keys /path/to/directory key1,key2,key3
+    python orgfiles.py undo
     ```
 
-- **Delete by Extension:**
-    ```bash
-    python orgfiles.py delete_by_extension /path/to/directory .ext
-    ```
+- `bulk_rename`: Rename files within a directory using a specified pattern.
 
-- **Bulk Rename:**
     ```bash
     python orgfiles.py bulk_rename /path/to/directory pattern
     ```
 
-Replace `/path/to/directory` with the target directory and adjust the parameters accordingly.
+## Contributions
 
-## Contributing
+Contributions and feedback are appreciated! Feel free to open issues for suggestions or bug reports. Pull requests for enhancements or new features are welcome.
 
-Contributions are welcome! Please fork the repository and create a pull request with your changes or open an issue for any new features or bug fixes.
+## License
+
+This project is licensed under the [MIT License](LICENSE).
