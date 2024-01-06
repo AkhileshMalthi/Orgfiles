@@ -41,7 +41,7 @@ def organize(directory: str = typer.Argument(..., help="The directory path where
 
                     movements[filename] = {
                         "from": directory,
-                        "to": os.path.join(extension_folder, filename)
+                        "to": extension_folder
                     }
             save_movements(movements)
             typer.echo(f"Files organized by extension in {directory}.")
@@ -63,7 +63,7 @@ def organize(directory: str = typer.Argument(..., help="The directory path where
                             )
                             movements[filename] = {
                                 "from": directory,
-                                "to": os.path.join(keyword_folder, filename)
+                                "to": keyword_folder
                             }
                             break
 
