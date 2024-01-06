@@ -41,7 +41,7 @@ def organize(directory: str = typer.Argument(..., help="The directory path where
 
                     movements[filename] = {
                         "from": directory,
-                        "to": os.path.join(extension_folder, filename)
+                        "to": extension_folder
                     }
             save_movements(movements)
             typer.echo(f"Files organized by extension in {directory}.")
@@ -63,7 +63,7 @@ def organize(directory: str = typer.Argument(..., help="The directory path where
                             )
                             movements[filename] = {
                                 "from": directory,
-                                "to": os.path.join(keyword_folder, filename)
+                                "to": keyword_folder
                             }
                             break
 
@@ -150,13 +150,13 @@ def undo():
     save_movements(movements)
 
     if movement_details["to"] == "deleted":
-        os.rename(
+        os.replace(
             os.path.join(movement_details["to"], last_movement),
             os.path.join(movement_details["from"], last_movement),
         )
         typer.echo(f"Undo: Restored {last_movement} to {movement_details['from']}.")
     else:
-        os.rename(
+        os.replace(
             os.path.join(movement_details["to"], last_movement),
             os.path.join(movement_details["from"], last_movement),
         )
