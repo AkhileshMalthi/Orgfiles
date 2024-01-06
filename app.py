@@ -8,7 +8,7 @@ MOVEMENTS_FILE = "file_movements.json"
 
 def save_movements(movements):
     with open(MOVEMENTS_FILE, "w") as file:
-        json.dump(movements, file)
+        json.dump(movements, file, indent=4)
 
 def load_movements():
     movements = {}
@@ -150,13 +150,13 @@ def undo():
     save_movements(movements)
 
     if movement_details["to"] == "deleted":
-        os.rename(
+        os.replace(
             os.path.join(movement_details["to"], last_movement),
             os.path.join(movement_details["from"], last_movement),
         )
         typer.echo(f"Undo: Restored {last_movement} to {movement_details['from']}.")
     else:
-        os.rename(
+        os.replace(
             os.path.join(movement_details["to"], last_movement),
             os.path.join(movement_details["from"], last_movement),
         )
