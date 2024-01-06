@@ -8,7 +8,7 @@ MOVEMENTS_FILE = "file_movements.json"
 
 def save_movements(movements):
     with open(MOVEMENTS_FILE, "w") as file:
-        json.dump(movements, file)
+        json.dump(movements, file, indent=4)
 
 def load_movements():
     movements = {}
