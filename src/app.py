@@ -1,3 +1,4 @@
+from rich import print as rprint
 import typer
 import os
 import shutil
@@ -44,7 +45,7 @@ def organize(directory: str = typer.Argument(..., help="The directory path where
                         "to": extension_folder
                     }
             save_movements(movements)
-            typer.echo(f"Files organized by extension in {directory}.")
+            rprint(f"Files [green]organized[/green] by extension in [blue]{directory}[/blue].")
         elif by == 'keyword':
             keywords = typer.prompt("Enter keywords (comma-separated):")
             keyword_list = keywords.split(',')
@@ -68,12 +69,12 @@ def organize(directory: str = typer.Argument(..., help="The directory path where
                             break
 
             save_movements(movements)
-            typer.echo(f"Files organized by keywords in {directory} using {keywords}.")
+            rprint(f"Files [green]organized[/green] by keywords in [blue]{directory}[/blue] using [blue]{keywords}[/blue].")
         else:
             raise typer.BadParameter("Invalid option. Use 'extension' or 'keyword'.")
 
     except Exception as e:
-        typer.echo(f"Error organizing files: {e}", err=True)
+        rprint(f"[bold red]Error organizing files:[/bold red] {e}")
 
 @app.command()
 def delete(directory: str, by: str = typer.Option(..., help="Delete by 'key' or 'extension'")):
@@ -94,7 +95,7 @@ def delete(directory: str, by: str = typer.Option(..., help="Delete by 'key' or 
                         }
 
             save_movements(movements)
-            typer.echo(f"Files deleted in {directory} with extension: {extension}.")
+            rprint(f"Files [green]deleted[/green] in [blue]{directory}[/blue] with extension(s): [blue]{extension}[/blue].")
         elif by == 'key':
             keys = typer.prompt("Enter keys (comma-separated):")
             key_list = keys.split(',')
@@ -113,12 +114,12 @@ def delete(directory: str, by: str = typer.Option(..., help="Delete by 'key' or 
                             break
 
             if not files_to_delete:
-                typer.echo("No files found to delete.")
+                rprint("[bold yellow]No files found to delete.[/bold yellow]")
                 return
 
             # Confirmation prompt
             confirm = typer.confirm(
-                f"Are you sure you want to delete these files? {files_to_delete}"
+                f"[bold yellow]Are you sure you want to delete these files? {files_to_delete}[/bold yellow]"
             )
             if confirm:
                 # Perform deletion
@@ -126,14 +127,14 @@ def delete(directory: str, by: str = typer.Option(..., help="Delete by 'key' or 
                     os.remove(os.path.join(directory, filename))
 
                 save_movements(movements)
-                typer.echo(f"Files deleted in {directory} using keys: {keys}.")
+                rprint(f"Files [green]deleted[/green] in [blue]{directory}[/blue] using keys: [blue]{keys}[/blue].")
             else:
-                typer.echo("Deletion operation cancelled.")
+                rprint("[yellow]Deletion operation cancelled.[/yellow]")
         else:
             raise typer.BadParameter("Invalid option. Use 'key' or 'extension'.")
 
     except Exception as e:
-        typer.echo(f"Error deleting files: {e}", err=True)
+        rprint(f"[bold red]Error deleting files:[/bold red] {e}")
 
 @app.command()
 def undo():
@@ -142,7 +143,7 @@ def undo():
     """
     movements = load_movements()
     if not movements:
-        typer.echo("No movements to undo.")
+        rprint("[yellow]No movements to undo.[/yellow]")
         return
 
     last_movement = list(movements.keys())[-1]
@@ -150,17 +151,13 @@ def undo():
     save_movements(movements)
 
     if movement_details["to"] == "deleted":
-        os.replace(
-            os.path.join(movement_details["to"], last_movement),
-            os.path.join(movement_details["from"], last_movement),
-        )
-        typer.echo(f"Undo: Restored {last_movement} to {movement_details['from']}.")
+        rprint(f"[bold yellow]Undo Operation cannot be performed for [red]Deleted File[red][/bold yellow]")
     else:
         os.replace(
             os.path.join(movement_details["to"], last_movement),
             os.path.join(movement_details["from"], last_movement),
         )
-        typer.echo(f"Undo: Reverted {last_movement} back to {movement_details['from']}.")
+        rprint(f"[bold yellow]Undo:[/bold yellow] [bold green]Reverted[/bold green] [bold blue]{last_movement}[/bold blue] back to [bold blue]{movement_details['from']}[/bold blue].")
 
 @app.command()
 def bulk_rename(directory: str, pattern: str):
@@ -177,9 +174,9 @@ def bulk_rename(directory: str, pattern: str):
                     os.path.join(directory, new_filename),
                 )
 
-        typer.echo(f"Files in {directory} renamed with pattern: {pattern}.")
+        rprint(f"Files in [blue]{directory}[/blue] renamed with pattern: [blue]{pattern}[/blue].")
     except Exception as e:
-        typer.echo(f"Error renaming files: {e}", err=True)
+        rprint(f"[bold red]Error renaming files:[/bold red] {e}")
 
 if __name__ == "__main__":
     app()
