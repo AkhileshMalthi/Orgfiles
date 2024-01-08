@@ -47,7 +47,7 @@ def organize(directory: str = typer.Argument(..., help="The directory path where
             save_movements(movements)
             rprint(f"Files [green]organized[/green] by extension in [blue]{directory}[/blue].")
         elif by == 'keyword':
-            keywords = typer.prompt("Enter keywords (comma-separated):")
+            keywords = typer.prompt("Enter keywords (comma-separated)")
             keyword_list = keywords.split(',')
             for filename in os.listdir(directory):
                 if os.path.isfile(os.path.join(directory, filename)):
