@@ -19,7 +19,7 @@ def organize(directory: str = typer.Argument(..., help="The directory path where
             for filename in os.listdir(directory):
                 if os.path.isfile(os.path.join(directory, filename)):
                     extension = filename.split(".")[-1]
-                    extension_folder = os.path.join(directory, extension)
+                    extension_folder = os.path.join(directory, extension).upper()
 
                     if not os.path.exists(extension_folder):
                         os.makedirs(extension_folder)
