@@ -14,16 +14,19 @@ Orgfiles is a versatile command-line tool for organizing, managing, and tidying 
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/your_username/orgfiles.git
-    cd orgfiles
+    git clone https://github.com/AkhileshMalthi/Orgfiles.git
+    cd Orgfiles
     ```
 
-2. **Install Dependencies:**
-
-    - typer
+2. **Build the package and Get the Distribution**
 
     ```bash
-    pip install typer
+    pip setup.py sdist bdist_wheel
+    ```
+3. **Install the Application**
+
+    ```bash
+    pip install .
     ```
 
 ## Usage
@@ -33,27 +36,27 @@ Orgfiles is a versatile command-line tool for organizing, managing, and tidying 
 - `organize`: Sort files within a directory by extension or keyword.
 
     ```bash
-    python orgfiles.py organize /path/to/directory --by extension
-    python orgfiles.py organize /path/to/directory --by keyword
+    orgfiles organize /path/to/directory --by extension
+    orgfiles organize /path/to/directory --by keyword
     ```
 
 - `delete`: Remove files within a directory based on keywords or extensions.
 
     ```bash
-    python orgfiles.py delete /path/to/directory --by extension
-    python orgfiles.py delete /path/to/directory --by key
+    orgfiles delete /path/to/directory --by extension
+    orgfiles delete /path/to/directory --by key
     ```
 
 - `undo`: Undo the last file movement action (organization or deletion).
 
     ```bash
-    python orgfiles.py undo
+    orgfiles undo
     ```
 
 - `bulk_rename`: Rename files within a directory using a specified pattern.
 
     ```bash
-    python orgfiles.py bulk_rename /path/to/directory pattern
+    orgfiles bulk_rename /path/to/directory pattern
     ```
 
 ## Contributions
