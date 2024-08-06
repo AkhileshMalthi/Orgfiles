@@ -9,7 +9,7 @@ def read(filename):
 
 setup(
     name="orgfiles",
-    version="0.1.0",
+    version="0.2",
     author='Akhilesh Malthi',
     author_email='akhileshmalthi2299@gmail.com',
     packages=find_packages(),
