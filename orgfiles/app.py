@@ -3,7 +3,7 @@ import typer
 import os
 import shutil
 import json
-from utils import *
+from .utils import *
 
 app = typer.Typer()
 
