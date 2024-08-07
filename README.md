@@ -18,12 +18,7 @@ Orgfiles is a versatile command-line tool for organizing, managing, and tidying 
     cd Orgfiles
     ```
 
-2. **Build the package and Get the Distribution**
-
-    ```bash
-    pip setup.py sdist bdist_wheel
-    ```
-3. **Install the Application**
+2. **Install the Application**
 
     ```bash
     pip install .
